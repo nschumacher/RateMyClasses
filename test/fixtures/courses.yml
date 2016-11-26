@@ -1,0 +1,19 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  department: 1
+  description: MyText
+  lastEdited: 2016-02-10 13:55:23
+  average: 1
+  gradeAverage: MyString
+  numReviews: 1
+
+two:
+  name: MyString
+  department: 1
+  description: MyText
+  lastEdited: 2016-02-10 13:55:23
+  average: 1
+  gradeAverage: MyString
+  numReviews: 1

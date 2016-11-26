@@ -1,0 +1,72 @@
+<div id="gold_nav" class="navbar navbar-inverse" role="navigation">
+	<div class="container">
+			<ul class="nav navbar-nav right" id="apptitutor">
+				<li>
+					Looking for a tutor? Find one that fits your needs at <a href="http://apptitutor.herokuapp.com" id="apptitutor_link">Apptitutor.com!</a>
+				</li>
+			</ul>
+	</div>
+</div>
+
+<div id="top">
+	<div class="container">
+		<div class="row">
+      <a href="/">
+  			<h1 style="margin-bottom:0px"><div id="title_block">Rate My Classes</div></h1>
+  			<div style="color: #B1810B; padding-left: 2px;">
+  				For use by students at Purdue University
+  			</div>
+      </a>
+		</div>
+	</div>
+</div>
+
+<div id="black_nav" class="navbar navbar-inverse" role="navigation">
+	<div class="container">
+		<div class="row">
+			<div class="col-xs-3 vcenter" id="left_blank">&nbsp</div>
+			<div class="col-xs-6 vcetner">
+				<div class="vcenter" style="height:50px">&nbsp</div>
+				<div class="vcenter" style="width: 90%">
+					<%= form_tag search_courses_path, method: :get, class: "input-group vcenter", style:"width: 98%; vertical-align:middle" do %>
+						<p>
+							<%= button_tag(type: "submit", class: "btn", id: "search_button") do %>
+								<span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+							<% end %>
+							<%= text_field_tag :search, params[:search], class:"form-control", :id =>"search_box", placeholder:"Search for a class at Purdue", style:"width: 85%" %>
+						</p>
+					<% end %>
+				</div>
+			</div>
+			<div class="col-xs-3 vcenter">
+				<div class="vcenter" style="height:50px">&nbsp</div>
+				<div class="vcenter" style="width: 90%">
+					<% if user_signed_in? %>
+						<ul align="right" style="color:#b1810B">
+							<li class="dropdown" align="left">
+								<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+									<span class="glyphicon glyphicon-user"></span>
+									<%= current_user.email%>
+									<span class="caret"></span>
+								</a>
+  							<ul class="dropdown-menu">
+  								<li><a href="/users/edit" data-no-turbolink="true">Edit Profile <span class="glyphicon pull-right glyphicon-pencil"></span></a></li>
+  									<li role="separator" class="divider"></li>
+  									<% if current_user.admin? %>
+  										<li><a href="/pages/admin">Admin<span class="glyphicon pull-right glyphicon-king"></span></a></li>
+  									<% end %>
+  									<li><a href="/ContactUs">Contact Us <span class="glyphicon pull-right glyphicon-question-sign"></span></a></li>
+  								<li><%= link_to "Sign out", destroy_user_session_path, method: :delete %></li>
+  							</ul>
+  						</li>
+					  </ul>
+					<% else %>
+						<div align="right" style="color: #B1810B">
+							<a class="sign" href="/users/sign_up">Sign Up</a> <a class="sign" href="/users/sign_in">Log In</a>
+						</div>
+					<% end %>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

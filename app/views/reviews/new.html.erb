@@ -1,0 +1,37 @@
+<style>
+	#myBody {
+		background-color:;
+		box-shadow: 2px 2px 10px rgba(0,0,0,.6);
+	}
+	.backLink {
+		background-color: transparent;
+		text-decoration: none;
+	}
+	.backLink:hover {
+		background-color: transparent;
+		text-decoration: none;
+		color: black !important;
+	}
+</style>
+
+<div class="" id="myBody">
+	<div style="background-color: #B1810B; padding: 10px; margin-top: 10px">
+		<h1 style="color: white; text-shadow: 2px 2px black">
+			Review for <%= @cid.fullName%>: <%= @cid.name %>
+		</h1>
+	</div>
+
+	<% if Review.find_by_course_id_and_user_id(@cid.id, current_user.id) %>
+		<h3 align="center">
+			You already wrote a review for this class
+		</h3>
+		<div style="background-color: #B1810B; padding: 10px; margin-bottom:10px;">
+		<%= link_to 'Back', course_path(@cid), style: "color: white", class: "backLink" %>
+		</div>
+	<% else %>
+		<%= render 'form' %>
+	<% end %>
+
+
+
+</div>

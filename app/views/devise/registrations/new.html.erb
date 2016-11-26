@@ -1,0 +1,42 @@
+<%#= stylesheet_link_tag '/css/contact.css', :media => 'all' %>
+
+<div class="jumbotron">
+    <h1 style="text-align:center;">Sign Up</h1>
+    <p style="text-align:center; color: white; text-shadow: 2px 2px black;">Sign up with your @purdue.edu email and start writing reviews today!</p>
+</div>
+
+<div class="row">
+  <div class="col-lg-3"></div>
+  <div class="col-lg-6 text-center">
+    <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+      <%= devise_error_messages! %>
+
+      <div class="field">
+        <%= f.label :email, "Email (@purdue.edu)" %><br>
+        <%= f.email_field :email, autofocus: true %>
+      </div>
+
+      <div class="field">
+        <%= f.label :password %>
+        <% if @minimum_password_length %>
+          <em>(<%= @minimum_password_length %> characters minimum)</em>
+        <% end %><br>
+        <%= f.password_field :password, autocomplete: "off" %>
+      </div>
+
+      <div class="field">
+        <%= f.label :password_confirmation %><br>
+        <%= f.password_field :password_confirmation, autocomplete: "off" %>
+      </div>
+
+      <div style="margin-top: 10px" class="actions">
+        <%= f.submit "Sign up" %>
+      </div>
+    <% end %>
+  </div>
+  <div class="col-lg-3"></div>
+</div>
+<br>
+<div align="center">
+  Already signed up? <%= link_to "Sign In", new_user_session_path, class: "link" %>
+</div>

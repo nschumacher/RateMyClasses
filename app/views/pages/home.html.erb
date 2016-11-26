@@ -1,0 +1,199 @@
+<div id="gold_nav" class="navbar navbar-inverse" role="navigation">
+	<div class="container">
+			<ul class="nav navbar-nav right" id="apptitutor">
+				<li>
+					Looking for a tutor? Find one that fits your needs at <a href="http://apptitutor.herokuapp.com" id="apptitutor_link">Apptitutor.com!</a>
+				</li>
+			</ul>
+	</div>
+</div>
+
+<div id="top">
+	<div class="container">
+		<div class="row">
+			<h1 style="margin-bottom:0px"><div id="title_block">Rate My Classes</div></h1>
+			<div style="color: #B1810B; padding-left: 2px;">
+				For use by students at Purdue University
+			</div>
+		</div>
+	</div>
+</div>
+
+<div id="black_nav" class="navbar navbar-inverse" role="navigation">
+	<div class="container">
+		<div class="row">
+			<div class="col-xs-3 vcenter" id="left_blank">&nbsp</div>
+			<div class="col-xs-6 vcetner">
+				<div class="vcenter" style="height:50px">&nbsp</div>
+				<div class="vcenter" style="width: 90%">
+					<%= form_tag search_courses_path, method: :get, class: "input-group vcenter", style:"width: 98%; vertical-align:middle" do %>
+						<p>
+							<%= button_tag(type: "submit", class: "btn", id: "search_button") do %>
+								<span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+							<% end %>
+							<%= text_field_tag :search, params[:search], class:"form-control", :id =>"search_box", placeholder:"Search for a class at Purdue", style:"width: 85%" %>
+						</p>
+					<% end %>
+				</div>
+			</div>
+			<div class="col-xs-3 vcenter">
+				<div class="vcenter" style="height:50px">&nbsp</div>
+				<div class="vcenter" style="width: 90%">
+					<% if user_signed_in? %>
+						<ul align="right" style="color:#b1810B">
+							<li class="dropdown" align="left">
+								<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+									<span class="glyphicon glyphicon-user"></span>
+									<%= current_user.email%>
+									<span class="caret"></span>
+								</a>
+								<ul class="dropdown-menu">
+									<li><a href="/users/edit" data-no-turbolink="true">Edit Profile <span class="glyphicon pull-right glyphicon-pencil"></span></a></li>
+										<li role="separator" class="divider"></li>
+										<% if current_user.admin? %>
+											<li><a href="/pages/admin">Admin<span class="glyphicon pull-right glyphicon-king"></span></a></li>
+										<% end %>
+										<li><a href="/ContactUs">Contact Us <span class="glyphicon pull-right glyphicon-question-sign"></span></a></li>
+									<li><%= link_to "Sign out", destroy_user_session_path, method: :delete %></li>
+								</ul>
+							</li>
+						</ul>
+					<% else %>
+						<div align="right" style="color: #B1810B">
+							<a class="sign" href="/users/sign_up">Sign Up</a> <a class="sign" href="/users/sign_in">Log In</a>
+						</div>
+					<% end %>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="background-image"></div>
+<div id="content">
+	<div class="container" id="content_container">
+		<div class="row" style="margin-top: 8px; margin-bottom:8px">
+			<div class="col-xs-0 col-md-2">
+				&nbsp
+			</div>
+			<div class="col-xs-12 col-md-8" align="center">
+				<div class="my_ad_box" align="left">
+					<div style="width: 150px; height: 10px; background-color: rgb(70,150,230); margin-left: 30px; margin-bottom: 10px">
+						&nbsp
+					</div>
+					<h3>See What Others Are Saying About the Classes You Want to Take!</h3>
+				</div>
+			</div>
+			<div class="col-xs-0 col-md-2">
+				&nbsp
+			</div>
+		</div>
+		<div class="row" style="margin-bottom:8px">
+			<div class="col-xs-12 col-md-5" align="center">
+				<div class="my_ad_box">
+					<div style="width: 150px; height: 10px; background-color: rgb(10,130,10); margin-left: 30px; margin-bottom: 10px">
+						&nbsp
+					</div>
+					<h3>Share Your experience! Good or Bad!</h3>
+				</div>
+			</div>
+			<div class="col-xs-0 col-md-2">
+				&nbsp
+			</div>
+			<div class="col-xs-12 col-md-5" align="center">
+				<div class="my_ad_box">
+					<div style="width: 150px; height: 10px; background-color: rgb(160,30,10); margin-left: 30px; margin-bottom: 10px">
+						&nbsp
+					</div>
+					<h3>Ask Questions and Get Real Answers!</h3>
+				</div>
+			</div>
+		</div>
+		<div align="center">
+			<div style="width: 300px; background-color: white; color: #B1810B; padding: 10px 20px; box-shadow: 2px 2px 10px rgba(0,0,0,.6);">
+				<h3>Top Rated Classes</h3>
+			</div>
+		</div>
+		<!-- Top rated classes -->
+			<% @i = 1 %>
+			<% @courses.sort_by{|x| x[:ratings] }.reverse.first(10).each do |course| %>
+				<% if @i % 2 != 0 %>
+				<div class="row resultRow">
+				<% end %>
+					<a href="/courses/<%=course.id%>" class="courseLink">
+						<div class="col-sm-12 col-md-6">
+							<div class="result">
+								<!-- Department and Rank -->
+								<div class="row">
+										<div class="col-xs-10">
+											<%= course.departmentFull %> Department (<%= course.department %>)
+										</div>
+										<div class="col-xs-2" align="right" style="color: #B1810B"><b>No. <%= @i %></b></div>
+								</div>
+
+								<!-- Course Number and Name -->
+								<h3 style="margin-top: 5px" align="center"><b><%= course.fullName %> <span style="color: #B1810B">|</span> <%= course.name %></b></h3>
+
+								<!-- Rating -->
+								<div class="row">
+									<% if course.ratings? %>
+										<% if course.ratings.to_f >= 4.5 %>
+											<div class="col-xs-12 " align="center"><b></b><img src="/assets/5stars.png" style="height:30px; width:120px; "></div>
+										<% elsif course.ratings.to_f >= 3.5 %>
+											<div class="col-xs-12 " align="center"><b></b><img src="/assets/4stars.png" style="height:30px; width:120px; "></div>
+										<% elsif course.ratings.to_f >= 2.5 %>
+											<div class="col-xs-12 " align="center"><b></b><img src="/assets/3stars.png" style="height:30px; width:120px; "></div>
+										<% elsif course.ratings.to_f >= 1.5 %>
+											<div class="col-xs-12 " align="center"><b></b><img src="/assets/2stars.png" style="height:30px; width:120px; "></div>
+										<% elsif course.ratings.to_f > 0 %>
+											<div class="col-xs-12 " align="center"><b></b><img src="/assets/1star.png" style="height:30px; width:120px; "></div>
+										<% end %>
+									<%else%>
+										<div class="col-xs-12" align="center"><b></b> No rating available</div>
+									<% end %>
+								</div>
+
+								<!-- Description -->
+								<div class="description_box">
+									<% if course.description.blank? %>
+										There is no description for this course yet. If you are familiar with this course, please write a review for this course and add to the description yourself!
+									<% else %>
+										<%= course.description %>
+									<% end %>
+								</div>
+
+								<!-- Last Reviewed -->
+								<div align="right">
+									<% if course.lastEdited.blank? %>
+										Last Reviewed: N/A
+									<% else %>
+										Last Reviewed: <%= course.lastEdited.strftime("%B %e, %Y") %>
+									<% end %>
+								</div>
+							</div>
+						</div>
+					</a>
+					<% if @i % 2 == 0 %>
+					</div>
+					<% end %>
+
+				<% @i+=1 %>
+			<% end %>
+		 <!-- End Top rated classes -->
+	</div>
+</div>
+
+<div id="bottom">
+	<div class="container">
+		<div align="center">
+			<a href="/pages/about" class="link" style="color: #B1810B;">About</a> | <a href="/ContactUs" class="link" style="color: #B1810B;">Contact Us</a> |
+			<a href="/pages/privacypolicy" class="link" style="color: #B1810B;">Privacy Policy</a>
+		</div>
+		<div align="center">
+			Designed and Maintained by DevTeam3
+		</div>
+		<div align="center">
+			Trouble with this page? Please contact us at admin@ratemyclasses.com
+		</div>
+	</div>
+</div>

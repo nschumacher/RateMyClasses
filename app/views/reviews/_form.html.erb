@@ -1,0 +1,67 @@
+<%= form_for([@cid, @review], :html => {multipart: true}) do |f| %>
+  <% if @review.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@review.errors.count, "error") %> prohibited this review from being saved:</h2>
+
+      <ul>
+      <% @review.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div style="background: url('/assets/stripes-tile.png'); margin-bottom: 0px; margin-top: ; color: #B1810B">
+    <div class="row">
+      <div class="col-md-12">
+        <h4 style="padding-left:20px; padding-right:20px;">
+          <%= f.hidden_field :userID, "value" => current_user.id %>
+          <%= f.hidden_field :course_id, "value" => @cid %>
+          <div class="form-group">
+            <%= f.label "Review" %>
+            <%= f.text_area :Comment, class:"form-control" %>
+          </div>
+          <div class="form-group">
+            <%= f.label "Who was the professor of the class?" %>
+            <%= f.text_field :Instructor, class:"form-control" %>
+          </div>
+          <div class="form-group">
+            <%= f.label "Who were the Teachers Assistants's of the class?" %>
+            <%= f.text_field :TAs, class:"form-control" %>
+          </div>
+          <div class="form-group">
+            <%= f.label "What grade did you recieve in the class?" %>
+            <%= f.select(:GradeReceived, [['A', 1], ['B', 2], ['C',3], ['D',4], ['F',5]], :prompt => "Grade")  %>
+          </div>
+          <div class="field">
+            <%= f.label "How many hours a week did you spend on the class?" %><br>
+            <%= f.number_field :HoursAWeek, in: 0...21 %>
+          </div>
+          <div class="field">
+            <%= f.label "Do you think the textbook is necessary to complete the class? (Check means yes)" %><br>
+            <%= f.check_box :TextbookRequired %>
+          </div>
+          <div class="field">
+            <%= f.label "Is attendance required in the class? (Check means yes)" %><br>
+            <%= f.check_box :AttendanceRequired %>
+          </div>
+          <dib class="field">
+          <%= f.label "When did you take the class?" %><br>
+          <%= f.select(:Semester, [['Fall', 'Fall'], ['Spring', 'Spring'], ['Summer','Summer']], :prompt => "Semester") %>
+          <%= f.select( :YearTaken, ((Time.zone.now.year - 100)..(Time.zone.now.year + 1)).to_a.reverse, :prompt => "Year" )%>
+          </div>
+          <div class="form-group" style="padding-left: 30px; padding-right:30px">
+            <%= f.label :syllabus %>
+            <%= f.file_field :syllabus, class:"form-control" %>
+          </div>
+          <div class="actions" align="center" style="padding-left:30px; padding-right:20px;">
+            <%= f.submit class: "btn btn-primary", style:"width: 200px" %>
+          </div>
+        <% end %>
+      </h4>
+    </div>
+  </div>
+  <div style="background-color: #B1810B; padding: 10px; margin-bottom: 10px;">
+    <%= link_to 'Back', course_path(@cid), style: "color: white", class: "backLink" %>
+  </div>
+</div>

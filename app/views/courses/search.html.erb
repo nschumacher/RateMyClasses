@@ -1,0 +1,71 @@
+<% if @courses == nil || @courses.empty? %>
+	<div class="jumbotron">
+		<h1>We're sorry but we couldn't find any results for you :(</h1>
+	</div>
+<% else %>
+	<% @i = 1 %>
+	<% @courses.each do |course| %>
+		<% if @i % 2 != 0 %>
+			<div class="row resultRow">
+		<% end %>
+		<a href="/courses/<%=course.id%>" class="courseLink">
+			<div class="col-sm-12 col-md-6">
+				<div class="result">
+					<!-- Department and Rank -->
+					<div class="row">
+							<div class="col-xs-12">
+								<%= course.departmentFull %> Department (<%= course.department %>)
+							</div>
+					</div>
+
+					<!-- Course Number and Name -->
+					<h3 style="margin-top: 5px" align="center"><b><%= course.fullName %> <span style="color: #B1810B">|</span> <%= course.name %></b></h3>
+
+					<!-- Rating -->
+					<div class="row">
+						<% if course.ratings? %>
+							<% if course.ratings.to_f >= 4.5 %>
+								<div class="col-xs-12 " align="center"><b></b><img src="/assets/5stars.png" style="height:30px; width:120px; "></div>
+							<% elsif course.ratings.to_f >= 3.5 %>
+								<div class="col-xs-12 " align="center"><b></b><img src="/assets/4stars.png" style="height:30px; width:120px; "></div>
+							<% elsif course.ratings.to_f >= 2.5 %>
+								<div class="col-xs-12 " align="center"><b></b><img src="/assets/3stars.png" style="height:30px; width:120px; "></div>
+							<% elsif course.ratings.to_f >= 1.5 %>
+								<div class="col-xs-12 " align="center"><b></b><img src="/assets/2stars.png" style="height:30px; width:120px; "></div>
+							<% elsif course.ratings.to_f > 0 %>
+								<div class="col-xs-12 " align="center"><b></b><img src="/assets/1star.png" style="height:30px; width:120px; "></div>
+							<% end %>
+						<%else%>
+							<div class="col-xs-12" align="center"><b></b> No rating available</div>
+						<% end %>
+					</div>
+
+					<!-- Description -->
+					<div class="description_box">
+						<% if course.description.blank? %>
+							There is no description for this course yet. If you are familiar with this course, please write a review for this course and add to the description yourself!
+						<% else %>
+							<%= course.description %>
+						<% end %>
+					</div>
+
+					<!-- Last Reviewed -->
+					<div align="right">
+						<% if course.lastEdited.blank? %>
+							Last Reviewed: N/A
+						<% else %>
+							Last Reviewed: <%= course.lastEdited.strftime("%B %e, %Y") %>
+						<% end %>
+					</div>
+				</div>
+			</div>
+		</a>
+		<% if @i % 2 == 0 %>
+		</div>
+		<% end %>
+		<% @i+=1 %>
+	<% end %>
+	<div align="right">
+		<%= will_paginate @courses, renderer: BootstrapPagination::Rails %>
+	</div>
+<% end %>

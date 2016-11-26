@@ -1,0 +1,109 @@
+#gold_nav {
+  background-image: none;
+  background-color: #B1810B !important;
+  color: white;
+  border: none;
+  border-radius: 0px;
+  height: 35px;
+  margin-bottom: 0px;
+  padding-top: 8px;
+  font-size: 16px;
+}
+.link:hover {
+  color: #B1810B !important;
+}
+#gold_nav .container {
+  height: 100%;
+}
+#black_nav {
+  background-image: none;
+  background-color: black !important;
+  color: rgb(200, 200, 200);
+  border: none;
+  border-radius: 0px;
+  height: 50px;
+  margin-bottom: 0px;
+  padding-top: 0px;
+  font-size: 16px;
+}
+.right {
+  float: right;
+}
+.navbar {
+  min-height: 0px;
+}
+#apptitutor {
+  font-size: 14px;
+}
+#apptitutor_link:link {
+  color: white !important;
+  text-decoration: underline;;
+  display: inline;
+  padding: 0px;
+}
+#apptitutor_link:hover {
+  color: black !important;
+  text-decoration: underline;
+}
+a {
+  color:white !important;
+}
+#top {
+  background: url('/assets/stripes-tile.png');
+  height: 100px;
+}
+#title_block {
+  display: inline-block;
+  color: white;
+  padding-bottom: 5px;
+  border-bottom: 3px solid #B1810B;
+}
+#search_box {
+  background-color: black;
+  border: none;
+  border-radius: 0px;
+  border-bottom: 1px solid gray;
+  color: #B1810B;
+}
+#search_button {
+  color: gray;
+  background-color: black;
+  float: left;
+}
+#left_blank {
+  height: 50px;
+}
+.vcenter {
+  display: inline-block;
+  vertical-align: middle;
+}
+input::-webkit-input-placeholder {
+  color: #B1810B !important;
+}
+
+
+input:-moz-placeholder { /* Firefox 18- */
+  color: #B1810B !important;
+}
+
+
+input::-moz-placeholder {  /* Firefox 19+ */
+  color: #B1810B !important;
+}
+
+
+input:-ms-input-placeholder {
+  color: #B1810B !important;
+}
+.sign {
+  color: #B1810B !important;
+  margin-right: 8px;
+}
+.sign:hover {
+  color: white !important;
+  background-color: transparent;
+  margin-right: 8px;
+}
+.dropdown-menu a {
+  color: #B1810B !important;
+}

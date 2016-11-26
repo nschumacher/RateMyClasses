@@ -1,0 +1,128 @@
+<link href='https://fonts.googleapis.com/css?family=Josefin+Sans:600' rel='stylesheet' type='text/css'>
+<style>
+  .navbar{
+    margin-bottom: 0px;
+    z-index: 10000;
+    /*background-image: url('/assets/footer_background.jpg');*/
+    font-family: 'Josefin Sans', sans-serif;
+    background-color: black !important;
+  }
+
+  .dropdown-toggle  {
+    color: #B1810B !important;
+    text-decoration: none !important;
+    background-color: transparent !important;
+  }
+
+  .dropdown-toggle:hover  {
+    color: #B1810B !important;
+    text-decoration: none !important;
+    background-color: transparent !important;
+  }
+
+  .signOut {
+    color: #B1810B !important;
+    text-decoration: none !important;
+    background-color: transparent !important;
+  }
+
+  .signOut:hover  {
+    color: #B1810B !important;
+    text-decoration: none !important;
+    background-color: transparent !important;
+  }
+
+  body {
+    padding: 50px 0px;
+  }
+
+  @media(max-width:767px) {
+    .navbar .navbar-form {
+      width: 185px;
+      padding-left:0;
+      padding-right:0;
+    }
+  }
+
+  @media(min-width:768px) {
+    .navbar .navbar-form {
+      width: 250px;
+    }
+  }
+  
+  .navbar .navbar-form {
+    overflow-y: auto;
+    padding-top: 0;
+    padding-bottom: 0;
+    margin-right: 0;
+    margin-left: 0;
+    border: 0;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+  }
+</style>
+
+<script>
+  $(document).ready(function () {
+    $('.dropdown-toggle').dropdown();
+  });
+</script>
+
+
+
+<div class="navbar navbar- navbar-fixed-top">
+   <div class="container-fluid">
+      <div class="navbar-header">
+        <!-- Collapse -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+          <span class="glyphicon glyphicon-chevron-down" style="color:#B1810B"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+
+        <!-- Search Brand -->
+        <a class="navbar-brand pull-left" href="/pages/home" style="color: white; text-shadow: 1px 1px #B1810B;"><h3 style="padding:0px !important; margin:0px !important;">RateMyClasses</h3></a>
+
+        <!-- Search Area -->
+        <div class="navbar-form" style="width: 300px">    
+          <%= form_tag search_courses_path, method: :get, class: "input-group", style:"width: 100%" do %>
+                <!-- Search Field -->
+                <%= text_field_tag :search, params[:search], class:"form-control", placeholder:"Search for a course", style:"border-radius: 20px; height: 40px; border: 5px solid gray; background-color: white; color: black" %>
+                <div class="input-group-btn">
+                <!-- Search Button -->
+                <%= button_tag(type: "submit", class: "btn", style:"background-color:white; border-radius:20px; border: 5px solid gray; height: 40px") do %>
+                  <span class="glyphicon glyphicon-search" aria-hidden="true" style=""></span>
+                <% end %>
+                </div>
+            <% end %>
+          </div> <!-- Search Area -->
+      </div> <!-- Navbar Header -->
+
+      <!-- Collapse -->
+      <div class="navbar-collapse collapse">
+         <ul class="nav navbar-nav navbar-right">
+          <!-- Only show the Profile menu when logged in -->
+          <% if user_signed_in? %>
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                <span class="glyphicon glyphicon-user"></span> <%= current_user.email%>
+                <span class="caret"></span>
+              </a>
+              <ul class="dropdown-menu">
+                <li><a href="/users/edit" data-no-turbolink="true">Edit Profile<span class="glyphicon pull-right glyphicon-pencil"></span></a></li>
+                <li role="separator" class="divider"></li>
+                <li><a href="/ContactUs">Contact Us<span class="glyphicon pull-right glyphicon-question-sign"></span></a></li>
+                <% if current_user.admin? %>
+                  <li><a href="/pages/admin">Admin<span class="glyphicon pull-right glyphicon-king"></span></a></li>
+                <% end %>
+              </ul>
+            </li>
+            <li><%= link_to "Sign out", destroy_user_session_path, method: :delete, class: "signOut"; %></li>
+          <% else %>
+              <li><%= link_to "Sign up", new_user_registration_path, class: "signOut" %></li>
+              <li><%= link_to "Sign in", new_user_session_path, class: "signOut" %></li>
+          <% end %>
+         </ul>
+      </div><!--Collapse -->
+   </div> <!-- Container Fluid -->
+</div> <!-- Navbar -->
