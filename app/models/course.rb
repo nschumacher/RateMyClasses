@@ -2,8 +2,6 @@ class Course < ActiveRecord::Base
 	has_many :reviews
 	has_many :questions
 	has_many :answers
-	include Elasticsearch::Model
-	include Elasticsearch::Model::Callbacks
 
 	searchkick word_start: [:courseNum, :name, :department, :fullName, :departmentFull]
 
