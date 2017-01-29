@@ -2,9 +2,11 @@ class Course < ActiveRecord::Base
 	has_many :reviews
 	has_many :questions
 	has_many :answers
+	include Elasticsearch::Model
+	include Elasticsearch::Model::Callbacks
 
 	searchkick word_start: [:courseNum, :name, :department, :fullName, :departmentFull]
-	
+
 	# this tells searchkick what data to index for searching
 	def search_data
 		{
@@ -79,11 +81,11 @@ class Course < ActiveRecord::Base
 		if count == 0 then
 			return nil
 		end
-		
+
 		avgG = total/count
 		puts "avg"
 		puts avgG
-		
+
 		case avgG
       	when 1
         	return 'A'
@@ -96,6 +98,6 @@ class Course < ActiveRecord::Base
       	when 5
         	return 'F'
       	end
-	end	
+	end
 
 end
